@@ -1,0 +1,5 @@
+#!/bin/bash
+resizeAmount=10
+chartDir="./charts"
+
+mogrify -resize $resizeAmount% $chartDir/*.ti $chartDir/*.jpg
