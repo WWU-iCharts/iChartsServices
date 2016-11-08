@@ -48,10 +48,9 @@ class TestServer(unittest.TestCase):
 			follow_redirects=True	
 		)
 
-		open('testFile.zip', 'w+b').write(serverResponse.data)
-		#responseToZip = zipfile.ZipFile(serverResponse.data, mode='r')
-		#self.assertEqual(exampleNames <= responseToZip.namelist(), True)
-		self.assertEqual(True, True)
+		open(tempMapDir + 'testFile.zip', 'w+b').write(serverResponse.data)
+		responseToZip = zipfile.ZipFile(tempMapDir + 'testFile.zip', mode='r')
+		self.assertEqual(exampleNames <= responseToZip.namelist(), True)
 
 	#@pre jsonMapParsed should be an initialized json object with proper map request formatting.
 	#		This is given as "location name" : "version number".
@@ -63,6 +62,7 @@ class TestServer(unittest.TestCase):
 		listOfFiles = exampleZipFile.namelist()
 		
 		exampleZipFile.close()
+		os.remove(loc)
 		
 		self.assertEqual(exampleNames <= listOfFiles, True)
 	

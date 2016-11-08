@@ -45,14 +45,12 @@ def getMaps(requestedMaps=None):
 
 	finally:
 		return send_file(requestedMapsZip, as_attachment = True)
-
+		
 #@pre mapFile should be a json object containing the requested maps.
 #		It should follow the format of "location name" : "version number".
 #@post A zipfile object is returned that contains the requested maps in zip format, if they exist. 
 def buildMapZip(mapFile):
-	tmpZip = tempfile.NamedTemporaryFile(suffix=mapExtension, 
-											dir=tmpFolderPath,
-										)
+	tmpZip = tmpFolderPath + genRandFileName(mapExtension)
 	mapZip = zipfile.ZipFile(tmpZip, mode='w')
 	
 	for mapName, mapVersion in mapFile.iteritems():
